@@ -4,4 +4,6 @@ paymentrails/__pycache__
 paymentrails/exception/__pycache__
 *.pyc
 .env
+env
 *.egg-info
+.idea

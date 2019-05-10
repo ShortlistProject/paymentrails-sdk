@@ -46,7 +46,6 @@ class RecipientGateway(object):
         paymentrails.configuration.Configuration.client(
             self.config).patch(endpoint, body)
         return True
-       
 
     def delete(self, recipient_id):
         if recipient_id is None:
@@ -61,6 +60,22 @@ class RecipientGateway(object):
             str(page) + '&pageSize=' + str(page_number)
         response = paymentrails.configuration.Configuration.client(
             self.config).get(endpoint)
+        recipients = []
+        count = 0
+        for recipient in response['recipients']:
+            temp = paymentrails.recipient.Recipient.factory(recipient)
+
+            recipient = namedtuple("Recipient", temp.keys())(*temp.values())
+            recipients.insert(count, recipient)
+
+            count = count + 1
+        return recipients
+
+    def list(self):
+        endpoint = '/v1/recipients/'
+        response = paymentrails.configuration.Configuration.client(
+            self.config).get(endpoint)
+
         recipients = []
         count = 0
         for recipient in response['recipients']:

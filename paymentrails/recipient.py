@@ -45,6 +45,7 @@ class Recipient:
         """
         config = Configuration(Configuration.public_key, Configuration.private_key, Configuration.enviroment)
         return Gateway(config).recipient.find(recipient_id, term)
+
     @staticmethod
     def create(body):
         """
