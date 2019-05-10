@@ -56,8 +56,11 @@ class RecipientGateway(object):
         return True
 
     def search(self, page, page_number, term):
-        endpoint = '/v1/recipients?search=' + term + '&page=' + \
-            str(page) + '&pageSize=' + str(page_number)
+        endpoint = '/v1/recipients?search=' + term
+        if page:
+            endpoint += '&page=' + str(page)
+        if page_number:
+            '&pageSize=' + str(page_number)
         response = paymentrails.configuration.Configuration.client(
             self.config).get(endpoint)
         recipients = []
